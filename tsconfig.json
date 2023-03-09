@@ -19,3 +19,19 @@
     "noFallthroughCasesInSwitch": false
   }
 }
+// {
+//   "compilerOptions": {
+//     "target": "es5",
+//     "module": "commonjs",
+//     "lib": ["es6"],
+//     // "allows": true,
+//     "outDir": "build",
+//     "rootDir": "sre",
+//     "strict": true,
+//     "strictPropertyInitialization": false,
+//     "noImplicitAny": true,
+//     "esModuleInterop": true,
+//     "resolveJsonModule": true,
+//     "skipLibCheck": true,
+//     "forceConsistentCasingInFileNames":
+// }

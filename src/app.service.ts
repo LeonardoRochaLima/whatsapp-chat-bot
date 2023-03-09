@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { isValidNumber, parsePhoneNumber } from 'libphonenumber-js';
 import { Whatsapp, create } from 'venom-bot';
 
 @Injectable()
@@ -14,9 +15,27 @@ export class AppService {
   }
 
   qr = (base64Qrimg: string) => {};
+
   status = (statusSession: string, session: string) => {};
+
+  validatePhoneNumber(number: string) {
+    if (!isValidNumber(number, 'BR')) {
+      throw new Error('Número inválido');
+    }
+
+    let phoneNumber = parsePhoneNumber(number, 'BR')
+      .format('E.164')
+      .replace('+', '') as string;
+
+    phoneNumber = phoneNumber.includes('@c.us')
+      ? phoneNumber
+      : `${phoneNumber}@c.us`;
+
+    return phoneNumber;
+  }
+
   start = (client: Whatsapp) => {
-    const numberToSend = process.env.NUMBER_TO_SEND + '@c.us';
+    const numberToSend = this.validatePhoneNumber(process.env.NUMBER_TO_SEND);
     this.client = client;
     this.sendText(numberToSend, 'Olá, tudo bem?');
   };
